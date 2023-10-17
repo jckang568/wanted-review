@@ -1,5 +1,6 @@
 package kr.co.wanted.service;
 
+import kr.co.wanted.common.http.ApiResult;
 import kr.co.wanted.domain.entity.JobPosting;
 import kr.co.wanted.repository.JobPostingRepository;
 import org.springframework.stereotype.Service;
@@ -52,9 +53,9 @@ public class JobPostingService {
         jobPostingRepository.deleteById(jobPostingId);
     }
 
-    public List<JobPosting> getAllJobPostings() {
+    public ApiResult<List<JobPosting>> getAllJobPostings() {
         // 채용공고 목록 조회 로직
-        return jobPostingRepository.findAll();
+        return ApiResult.ok(jobPostingRepository.findAll());
     }
 
     public List<JobPosting> searchJobPostings(String keyword) {

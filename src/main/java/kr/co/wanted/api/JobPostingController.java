@@ -1,5 +1,6 @@
 package kr.co.wanted.api;
 
+import kr.co.wanted.common.http.ApiResult;
 import kr.co.wanted.domain.entity.JobPosting;
 import kr.co.wanted.service.JobPostingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +45,10 @@ public class JobPostingController {
     }
 
     @GetMapping
-    public List<JobPosting> getAllJobPostings() {
-        return jobPostingService.getAllJobPostings();
+    public ResponseEntity<ApiResult<List<JobPosting>>> getAllJobPostings() {
+        return ResponseEntity.ok(
+                jobPostingService.getAllJobPostings()
+        );
     }
 
     @GetMapping("/search")
