@@ -1,7 +1,9 @@
 package kr.co.wanted.service;
 
+import kr.co.wanted.api.request.JobPostingRequest;
 import kr.co.wanted.common.http.ApiResult;
 import kr.co.wanted.domain.entity.JobPosting;
+import kr.co.wanted.domain.mapper.JobPostingMapper;
 import kr.co.wanted.repository.JobPostingRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,12 @@ public class JobPostingService {
         this.jobPostingRepository = jobPostingRepository;
     }
 
-    // 생성자 주입
-
-    public JobPosting createJobPosting(JobPosting jobPosting) {
+    public ApiResult<JobPosting> createJobPosting(JobPostingRequest jobPostingRequest) {
+        JobPosting jobPosting = JobPostingMapper.INSTANCE.jobPostingRequestToJobPosting(jobPostingRequest);
         // 채용공고 등록 로직
-        return jobPostingRepository.save(jobPosting);
+        return ApiResult.ok(
+                jobPostingRepository.save(jobPosting)
+        );
     }
 
     public JobPosting updateJobPosting(Long jobPostingId, JobPosting updateJobPosting) {

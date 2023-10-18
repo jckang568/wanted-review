@@ -33,7 +33,15 @@ public class Country {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // 생성자, getter 및 setter 메서드
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 
     @Override
     public final boolean equals(Object o) {

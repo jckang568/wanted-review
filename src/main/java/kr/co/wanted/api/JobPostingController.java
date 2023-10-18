@@ -1,5 +1,6 @@
 package kr.co.wanted.api;
 
+import kr.co.wanted.api.request.JobPostingRequest;
 import kr.co.wanted.common.http.ApiResult;
 import kr.co.wanted.domain.entity.JobPosting;
 import kr.co.wanted.service.JobPostingService;
@@ -23,9 +24,12 @@ public class JobPostingController {
     }
 
     @PostMapping
-    public ResponseEntity<JobPosting> createJobPosting(@RequestBody JobPosting jobPosting) {
-        JobPosting savedJobPosting = jobPostingService.createJobPosting(jobPosting);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedJobPosting);
+    public ResponseEntity<ApiResult<JobPosting>> createJobPosting(@RequestBody JobPostingRequest jobPostingRequest) {
+        ApiResult<JobPosting> result = jobPostingService.createJobPosting(jobPostingRequest);
+        if(result.isResult()) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
 
     @PutMapping("/{jobPostingId}")
@@ -40,8 +44,11 @@ public class JobPostingController {
     }
 
     @DeleteMapping("/{jobPostingId}")
-    public void deleteJobPosting(@PathVariable Long jobPostingId) {
-        jobPostingService.deleteJobPosting(jobPostingId);
+    public ResponseEntity<ApiResult<Object>> deleteJobPosting(@PathVariable Long jobPostingId) {
+//        return new ResponseEntity.ok(
+//            jobPostingService.deleteJobPosting(jobPostingId)
+//        );
+        return null;
     }
 
     @GetMapping

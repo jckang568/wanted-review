@@ -25,7 +25,7 @@ public class JobPosting {
 
     @ManyToOne
     @JoinColumn(name = "company_id")
-    private Company company;
+    private Company companyId;
 
     @Column(name = "position")
     private String position;
@@ -46,6 +46,16 @@ public class JobPosting {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 
     @Override
     public final boolean equals(Object o) {

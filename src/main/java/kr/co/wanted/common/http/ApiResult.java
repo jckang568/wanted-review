@@ -3,8 +3,10 @@ package kr.co.wanted.common.http;
 
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Data;
 
 
+@Data
 public class ApiResult<T> {
 
     private boolean result;

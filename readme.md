@@ -24,7 +24,7 @@
   2. RDBMS 사용 (SQLite, PostgreSQL,MySql 등)
 
 - 데이터 예시
-  1. 채용공고
+  1. 채용공고 등록
   ```json
    {
    "회사_id": "회사_id",

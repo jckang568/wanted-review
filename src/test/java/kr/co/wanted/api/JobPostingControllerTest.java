@@ -1,6 +1,7 @@
 package kr.co.wanted.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import kr.co.wanted.api.request.JobPostingRequest;
 import kr.co.wanted.domain.entity.Company;
 import kr.co.wanted.domain.entity.JobPosting;
 import kr.co.wanted.service.JobPostingService;
@@ -33,20 +34,15 @@ public class JobPostingControllerTest {
     @Test
     public void testCreateJobPosting() throws Exception {
 
-        JobPosting jobPosting = new JobPosting();
-        Company company = new Company();
-        company.setCompanyId(1L);
-        jobPosting.setCompany(company);
-        jobPosting.setPosition("Backend Developer");
-        jobPosting.setRewardAmount(1000000);
-        jobPosting.setJobDescription("We are hiring a Backend Developer...");
-        jobPosting.setRequiredSkills("Java, Spring");
-        jobPosting.setCreatedAt(LocalDateTime.now());
-        jobPosting.setUpdatedAt(LocalDateTime.now());
-
+        JobPostingRequest jobPostingRequest = new JobPostingRequest();
+        jobPostingRequest.setCompanyId(1);
+        jobPostingRequest.setPosition("백엔드 시니어 개발자");
+        jobPostingRequest.setRewardAmount(1000000);
+        jobPostingRequest.setJobDescription("원티드 인서트 테스트");
+        jobPostingRequest.setRequiredSkills("JPA, Hibernate");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/jobpostings")
-                        .content(objectMapper.writeValueAsString(jobPosting))
+                        .content(objectMapper.writeValueAsString(jobPostingRequest))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
